@@ -6,7 +6,7 @@ let y = new Date();
 // thing (variable, function, object): type
 
 let variable: string;
-let add = function (x: number, y: number): number {
+let add = function( x: number, y: number ): number {
   return x + y;
 };
 
@@ -17,7 +17,7 @@ interface Book {
   title: string;
   pageCount: number;
   getAuthor: () => string;
-  setAuthor: (name: string) => void;
+  setAuthor: ( name: string ) => void;
 }
 
 interface Vehicle {
@@ -42,15 +42,15 @@ class Person {
   firstName: string;
   lastName: string;
 
-  constructor(firstName: string, lastName: string) {
+  constructor( firstName: string, lastName: string ) {
     this.firstName = firstName;
     this.lastName = lastName;
   }
 }
 
-type addFunction = (x: number, y: number) => number;
+type addFunction = ( x: number, y: number ) => number;
 
-let addImplementation: addFunction = (first, second) => {
+let addImplementation: addFunction = ( first, second ) => {
   return first + second;
 };
 
