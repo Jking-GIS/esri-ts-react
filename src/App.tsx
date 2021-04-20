@@ -1,24 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import Greeter from './Greeter';
-import './App.css';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
+import DemosView from './views/DemosView';
+import TransactionsView from './views/TransactionsView';
+import UsersView from './views/UsersView';
 
 function App(): JSX.Element {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Greeter/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <main className="container">
+        <header className="row">
+          <h1>ESRI React + Typescript</h1>
+        </header>
+        <hr />
+        <nav className="row">
+          <div className="col">
+            <ul className="list-inline">
+              <li className="list-inline-item">
+                <Link to="/demos">Demos</Link>
+              </li>
+              <li className="list-inline-item">
+                <Link to="/users">Users</Link>
+              </li>
+              <li className="list-inline-item">
+                <Link to="/transactions">Transactions</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <Route path="/demos">
+          <DemosView />
+        </Route>
+        <Route path="/users">
+          <UsersView />
+        </Route>
+        <Route path="/transactions">
+          <TransactionsView />
+        </Route>
+      </main>
+    </BrowserRouter>
   );
 }
 
