@@ -30,11 +30,11 @@ interface Props {
 }
 
 type sortDirection = boolean | 'asc' | 'desc' | undefined;
-type sortDirections = {
+interface SortDirections {
   [key: string]: sortDirection;
-};
+}
 
-let sortDirs: sortDirections = {};
+let sortDirs: SortDirections = {};
 
 export default function UsersList( { initialUsers }: Props ): ReactElement {
   const [ users, setUsers ] = useState( initialUsers );
