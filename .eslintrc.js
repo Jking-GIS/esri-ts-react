@@ -22,6 +22,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'react-app',
     'react-app/jest',
+    'plugin:react-hooks/recommended',
   ],
   rules: {
     'array-bracket-spacing': [ 'error', 'always' ],
