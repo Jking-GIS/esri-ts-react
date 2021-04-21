@@ -1,6 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ChangeEventHandler, useState } from 'react';
 
 export default function ComponentCommunication(): ReactElement {
+  const [ siblingMessage, setSiblingMessage ] = useState( '' );
+
+  const handleTellParent = ( message: string ) => {
+    setSiblingMessage( message );
+  };
+
   return (
     <section>
       <div className="row">
@@ -12,10 +18,10 @@ export default function ComponentCommunication(): ReactElement {
             <div className="card-body">
               <div className="row">
                 <div className="col">
-                  <SiblingOne />
+                  <SiblingOne tellParent={handleTellParent} />
                 </div>
                 <div className="col">
-                  <SiblingTwo />
+                  <SiblingTwo message={siblingMessage} />
                 </div>
               </div>
             </div>
@@ -26,7 +32,17 @@ export default function ComponentCommunication(): ReactElement {
   );
 }
 
-function SiblingOne(): ReactElement {
+interface SiblingOneProps {
+  tellParent: ( message: string ) => void;
+}
+
+function SiblingOne( { tellParent }: SiblingOneProps ): ReactElement {
+  const [ message, setMessage ] = useState( '' );
+
+  const handleUpdateField: ChangeEventHandler<HTMLInputElement> = ( event ) => {
+    setMessage( event.currentTarget.value );
+  };
+
   return (
     <div className="card h-100">
       <div className="card-header bg-secondary text-light text-center">
@@ -35,14 +51,27 @@ function SiblingOne(): ReactElement {
       <div className="card-body">
         <div className="form-group">
           <label htmlFor="message-box">Send a message from here:</label>
-          <input type="text" id="message-box" className="form-control" />
+          <input
+            type="text"
+            id="message-box"
+            className="form-control"
+            onChange={handleUpdateField}
+            value={message}
+          />
         </div>
+        <button className="btn btn-warning" onClick={() => tellParent( message )}>
+          Send message
+        </button>
       </div>
     </div>
   );
 }
 
-function SiblingTwo( { message = '' }: { message?: string } ): ReactElement {
+interface SiblingTwoProps {
+  message: string;
+}
+
+function SiblingTwo( { message }: SiblingTwoProps ): ReactElement {
   return (
     <div className="card h-100">
       <div className="card-header bg-secondary text-light text-center">

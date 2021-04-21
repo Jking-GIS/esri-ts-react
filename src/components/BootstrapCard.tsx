@@ -1,13 +1,15 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
+type CSSClasses = string | string[];
+
 interface BootstrapCardProps {
   title: string;
   children: ReactNode;
   titleLevel?: string;
-  headerClasses?: string;
-  bodyClasses?: string;
-  className?: string;
+  headerClasses?: CSSClasses;
+  bodyClasses?: CSSClasses;
+  className?: CSSClasses;
 }
 
 function headerWrapper( level = '4', text: string ): JSX.Element {
