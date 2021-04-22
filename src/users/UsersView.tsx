@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { users } from '@speedingplanet/rest-server';
+import React, { useEffect, useState } from 'react';
+import { users, dao, User } from '@speedingplanet/rest-server';
 import UsersList from './UsersList';
-import { Route, useRouteMatch, NavLink } from 'react-router-dom';
+import { Route, useRouteMatch, NavLink, useHistory } from 'react-router-dom';
 import UsersDataTable from './UsersDataTable';
 import { ColumnConfig } from '../components/DataTable';
+import UserDetailsWrapper from './UserDetailsWrapper';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -14,11 +15,17 @@ export interface SortConfig {
 }
 
 export default function UsersView(): JSX.Element {
+  const history = useHistory();
+  const [ asyncUsers, setAsyncUsers ] = useState<User[]>( [] );
   const [ sortConfig, setSortConfig ] = useState<SortConfig>( {
     sortField: '',
     lastSortField: '',
     lastSortDirection: 'asc',
   } );
+
+  useEffect( () => {
+    dao.findAllUsers().then( ( results ) => setAsyncUsers( results.data ) );
+  }, [] );
 
   const urlPrefix = useRouteMatch().url;
 
@@ -64,6 +71,11 @@ export default function UsersView(): JSX.Element {
                   UsersDataTable
                 </NavLink>
               </li>
+              <li className="list-inline-item">
+                <NavLink to={urlPrefix + '/users-data-table-async'}>
+                  UsersDataTable (async)
+                </NavLink>
+              </li>
               <li className="list-inline-item">Add User</li>
             </ul>
           </nav>
@@ -79,7 +91,25 @@ export default function UsersView(): JSX.Element {
             />
           </Route>
           <Route path={urlPrefix + '/users-data-table'}>
-            <UsersDataTable users={users} columns={columns} />
+            <UsersDataTable
+              users={users}
+              columns={columns}
+              selectRow={( id ) => {
+                history.push( urlPrefix + `/details/${id}` );
+              }}
+            />
+          </Route>
+          <Route path={urlPrefix + '/users-data-table-async'}>
+            <UsersDataTable
+              users={asyncUsers}
+              columns={columns}
+              selectRow={( id ) => {
+                history.push( urlPrefix + `/details/${id}` );
+              }}
+            />
+          </Route>
+          <Route path={urlPrefix + '/details/:userId'}>
+            <UserDetailsWrapper />
           </Route>
         </div>
       </div>
