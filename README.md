@@ -13,3 +13,23 @@
 * [Fetching data with React hooks](https://www.robinwieruch.de/react-hooks-fetch-data)
 * [React testing library](https://testing-library.com/docs/react-testing-library/intro)
 * [Complete guide to useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
+
+## Notes
+
+### Controlled vs Uncontrolled components
+
+updates:  
+* Controlled components update on every interaction (keypress, click, etc.)
+* Uncontrolled components update when you tell them to (they need code to say WHEN they should update)
+
+re-render:  
+* Controlled component provoke re-rendering on every update because they're tied to state
+* Uncontrolled components may not even provoke re-rendering
+
+external updates:  
+* Controlled components can reflect updates to data other than from the form field
+* Uncontrolled components cannot reflect updates other than through user interactions (typing, clicking, etc.)
+
+collecting data:  
+* Controlled components are up-to-date
+* Data from uncontrolled components may be stale

@@ -1,16 +1,18 @@
 import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 
+type CSSClasses = string | string[];
+
 interface BootstrapCardProps {
   title: string;
   children: ReactNode;
   titleLevel?: string;
-  headerClasses?: string;
-  bodyClasses?: string;
-  className?: string;
+  headerClasses?: CSSClasses;
+  bodyClasses?: CSSClasses;
+  className?: CSSClasses;
 }
 
-function headerWrapper( level = '4', text: string ): JSX.Element {
+function headerWrapper( text: string, level = '4' ): JSX.Element {
   switch ( level ) {
   case '1':
     return <h1>{text}</h1>;
@@ -38,7 +40,7 @@ export default function BootstrapCard( {
   return (
     <div className={classNames( 'card', className )}>
       <div className={classNames( 'card-header', headerClasses )}>
-        {headerWrapper( titleLevel, title )}
+        {headerWrapper( title, titleLevel )}
       </div>
       <div className={classNames( 'card-body', bodyClasses )}>{children}</div>
     </div>
