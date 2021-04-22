@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import Counter from './Counter';
 import { increment, decrement, ReduxState } from './counter-slice';
 
+// mapReduxStateToReactProps
 const mapStateToProps = ( state: ReduxState ) => ( {
   value: state,
 } );
@@ -27,6 +28,12 @@ const mapDispatchToProps = ( dispatch: Dispatch ) => ( {
   increment: () => dispatch( increment() ),
   decrement: () => dispatch( decrement() ),
 } );
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const betterMapDispatchToProps = {
+  increment,
+  decrement,
+};
 
 const ReduxCounter = connect( mapStateToProps, mapDispatchToProps )( Counter );
 
